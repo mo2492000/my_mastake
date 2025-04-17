@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OM MAHMOUD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        #logo-container {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: url('https://i.postimg.cc/8Pc41HNs/Whats-App-Image-2025-04-10-at-4-48-08-PM.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            width: 300px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            z-index: 1;
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            border-radius: 6px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: #333;
+        }
+        input[type="text"]::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        button {
+            width: 90%;
+            padding: 12px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: rgba(76, 175, 80, 1);
+            transform: translateY(-2px);
+        }
+        #status {
+            margin-top: 15px;
+            color: #333;
+            font-size: 14px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        p {
+            color: #333;
+            font-size: 16px;
+            margin: 5px 0 15px 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .heart {
+            display: inline-block;
+            color: #ff4081;
+            animation: heartbeat 1.5s infinite;
+            font-size: 18px;
+        }
+        .loading:after {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 5px;
+        }
+        .download-path {
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        .success-message {
+            animation: pulse 2s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                width: 85%;
+                padding: 20px;
+                margin: 10px;
+            }
+            button {
+                padding: 15px;
+                font-size: 18px;
+            }
+            input[type="text"] {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <div id="logo-container"></div>
+
+    <div class="content">
+        <div class="title-container">
+            <i class="fa fa-heart heart"></i>
+            <h1>OM MAHMOUD</h1>
+            <i class="fa fa-heart heart"></i>
+        </div>
+        <p>i'm sorry my wife <i class="fa fa-heart heart"></i></p>
+        <input type="text" id="videoURL" placeholder="Enter video URL here...">
+        <button onclick="downloadVideo()">Download Video</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function getDownloadPath() {
+            if (/Android/i.test(navigator.userAgent)) {
+                return "/storage/emulated/0/Download/i'm sorry/";
+            } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                return "Files App/Downloads/i'm sorry/";
+            } else {
+                return "Downloads/i'm sorry/";
+            }
+        }
+
+        async function downloadVideo() {
+            const videoURL = document.getElementById("videoURL").value;
+            const statusElement = document.getElementById("status");
+
+            if (!videoURL) {
+                statusElement.innerText = "Please enter the video URL";
+                return;
+            }
+
+            statusElement.className = "loading";
+            statusElement.innerText = "Downloading...";
+
+            try {
+                if (videoURL.includes("tiktok.com")) {
+                    await downloadTikTokVideo(videoURL);
+                } else if (videoURL.includes("facebook.com") || videoURL.includes("fb.watch")) {
+                    await downloadFacebookVideo(videoURL);
+                } else {
+                    statusElement.className = "";
+                    statusElement.innerText = "Invalid URL. Please enter a link from TikTok or Facebook";
+                }
+            } catch (error) {
+                statusElement.className = "";
+                statusElement.innerText = error.message;
+            }
+        }
+
+        async function downloadTikTokVideo(url) {
+            const response = await fetch("https://tikwm.com/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `url=${encodeURIComponent(url)}&hd=1`
+            });
+
+            const data = await response.json();
+            if (data.data && data.data.play) {
+                const filename = `tiktok_${Date.now()}.mp4`;
+                await downloadFile(data.data.play, filename);
+                document.getElementById("status").className = "success-message";
+                document.getElementById("status").innerHTML = `
+                    Downloaded successfully!<br>
+                    <div class="download-path">
+                        <i class="fa fa-folder-open"></i>
+                        Save path: ${getDownloadPath()}${filename}
+                    </div>
+                `;
+            } else {
+                throw new Error("Failed to find video");
+            }
+        }
+
+        async function downloadFacebookVideo(url) {
+            try {
+                const response = await fetch('https://facebook-video-and-reel-downloader.p.rapidapi.com/app/main.php', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded',
+                        'X-RapidAPI-Key': '2e2b65c872msh3af2db40d140dd6p1dcebfjsn577ad6cab0c6',
+                        'X-RapidAPI-Host': 'facebook-video-and-reel-downloader.p.rapidapi.com'
+                    },
+                    body: `url=${encodeURIComponent(url)}`
+                });
+
+                const data = await response.json();
+                if (data.links && data.links.length > 0) {
+                    const videoUrl = data.links.find(l => l.quality === 'HD')?.url || data.links[0].url;
+                    const filename = `facebook_${Date.now()}.mp4`;
+                    await downloadFile(videoUrl, filename);
+                    document.getElementById("status").className = "success-message";
+                    document.getElementById("status").innerHTML = `
+                        تم التحميل بنجاح!<br>
+                        <div class="download-path">
+                            <i class="fa fa-folder-open"></i> 
+                            مسار الحفظ: ${getDownloadPath()}${filename}
+                        </div>
+                    `;
+                } else {
+                    throw new Error("Failed to find video");
+                }
+            } catch (error) {
+                throw new Error("Failed to download video from Facebook");
+            }
+        }
+
+        async function downloadFile(url, filename) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(downloadUrl);
+            } catch (error) {
+                console.error('Download error:', error);
+                throw new Error("Failed to download file - make sure the link is valid");
+            }
+        }
+    </script>
+</body>
+</html>
