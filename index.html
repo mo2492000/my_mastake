@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OM MAHMOUD</title>
+    <title>ABO MAHMOUD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,12 +33,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05); /* شفاف جدًا */
             padding: 25px;
             border-radius: 12px;
             width: 300px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(8px);
             text-align: center;
             z-index: 1;
         }
@@ -49,6 +47,10 @@
             gap: 10px;
             margin-bottom: 15px;
         }
+        h1, p, #status {
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+        }
         input[type="text"] {
             width: 90%;
             padding: 10px;
@@ -56,12 +58,11 @@
             border: 2px solid rgba(76, 175, 80, 0.5);
             border-radius: 6px;
             font-size: 14px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            color: #333;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
         }
         input[type="text"]::placeholder {
-            color: rgba(0, 0, 0, 0.5);
+            color: rgba(255, 255, 255, 0.5);
         }
         button {
             width: 90%;
@@ -78,24 +79,6 @@
         button:hover {
             background-color: rgba(76, 175, 80, 1);
             transform: translateY(-2px);
-        }
-        #status {
-            margin-top: 15px;
-            color: #333;
-            font-size: 14px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-        p {
-            color: #333;
-            font-size: 16px;
-            margin: 5px 0 15px 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
         .heart {
             display: inline-block;
@@ -120,7 +103,8 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 6px;
             font-size: 12px;
-            word-break: break-all;
+            word-break: break-word;
+            color: #fff;
         }
         .success-message {
             animation: pulse 2s infinite;
@@ -138,7 +122,6 @@
             50% { opacity: 0.7; }
             100% { opacity: 1; }
         }
-
         @media (max-width: 768px) {
             .content {
                 width: 85%;
@@ -164,10 +147,10 @@
     <div class="content">
         <div class="title-container">
             <i class="fa fa-heart heart"></i>
-            <h1>OM MAHMOUD</h1>
+            <h1>ABO MAHMOUD</h1>
             <i class="fa fa-heart heart"></i>
         </div>
-        <p>i'm sorry my wife <i class="fa fa-heart heart"></i></p>
+        <p>NO PAIN NO GAIN <i class="fa fa-heart heart"></i></p>
         <input type="text" id="videoURL" placeholder="Enter video URL here...">
         <button onclick="downloadVideo()">Download Video</button>
         <p id="status"></p>
